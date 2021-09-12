@@ -1,0 +1,33 @@
+{% extends "base.html.twig" %}
+
+{% block meta %}
+	<meta name="description" content="Trick list of Snowtricks, snowboarder community to learn snowboard tricks.">
+{% endblock %}
+
+{% block title %}Site communautaire SnowTricks
+{% endblock %}
+
+{% block body %}
+	<div class="row" id="home">
+		<div class="container-fluid homeHeader d-flex px-0 mx-0">
+			<div class="homeTitle py-4 px-4"></div>
+		</div>
+
+	</div>
+	<div class="container-fluid">
+		<div class="row justify-content-center pb-0" id="trickList">
+			{% for trick in tricks %}
+				<div class="col-md-2 col-sm-4 mx-1 mb-4 trick-card-div">
+					<div class="card">
+						<img class="card" class="card-img-top" src={{ trick.mainImage }} alt="{{ trick.name }}">
+						<a href="{{path('trick.show',{'id':trick.id}) }}">
+							<h5 class="card-title text-center">{{ trick.name }}</h5>
+						</a>
+						<a href="{{ path('trick_delete',{"id":trick.id}) }}" class="btn btn-sm btn-outline-secondary">supprimer</a>
+						<a href="{{ path('trick_edit',{"id":trick.id}) }}" class="btn btn-sm btn-outline-secondary">Editer</a>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}
