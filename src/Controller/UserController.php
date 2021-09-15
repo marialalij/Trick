@@ -11,6 +11,7 @@ use App\Repository\UserRepository;
 use App\Service\Mailer;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use App\Service\UserService;
 
 class UserController extends AbstractController
 {
@@ -22,17 +23,28 @@ class UserController extends AbstractController
     /**
      * @var Mailer
      */
+
     private $mailer;
+
     /**
      * @var UserRepository
      */
     private $userRepository;
 
-    public function __construct(UserPasswordEncoderInterface $passwordEncoder, Mailer $mailer, UserRepository $userRepository)
+
+    /**
+     * @var UserService
+     */
+    private $userService;
+
+
+
+    public function __construct(UserPasswordEncoderInterface $passwordEncoder, Mailer $mailer, UserRepository $userRepository, UserService $userService)
     {
         $this->passwordEncoder = $passwordEncoder;
         $this->mailer = $mailer;
         $this->userRepository = $userRepository;
+        $this->userService = $userService;
     }
 
     /**
@@ -95,15 +107,20 @@ class UserController extends AbstractController
         return rtrim(strtr(base64_encode(random_bytes(32)), '+/', '-_'), '=');
     }
 
-
-
     /**
-     * @Route("/reset", name="reset")
+     * Display loggued user tricks.
+     *
+     * @Route("user/users", name="user.users")
      */
-    public function reset(): Response
+    public function tricks(): Response
     {
-        return $this->render('registration/reset.html.twig', [
-            'controller_name' => 'UserController',
+
+        $rep = $this->getDoctrine()->getRepository(User::class);
+        $users = $rep->findAll();
+
+        return $this->render("pages/users.html.twig", [
+            'users' => $users,
+
         ]);
     }
 }
