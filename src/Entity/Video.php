@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\VideoRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 /**
  * @ORM\Entity(repositoryClass=VideoRepository::class)
@@ -22,10 +24,17 @@ class Video
      */
     private $name;
 
+    private $link;
+
     /**
      * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="videos",cascade={"persist", "remove"})
      */
     private $trick;
+
+    public function __construct()
+    {
+        $this->tricks = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -54,5 +63,25 @@ class Video
         $this->trick = $trick;
 
         return $this;
+    }
+
+    public function getLink(): ?string
+    {
+        return $this->link;
+    }
+
+    public function setLink(string $link)
+    {
+        $this->link = $link;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Trick[]
+     */
+    public function getTricks(): Collection
+    {
+        return $this->tricks;
     }
 }

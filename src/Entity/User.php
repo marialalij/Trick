@@ -74,9 +74,29 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $enabled;
 
     /**
+     * @Assert\Length(min="6", max="30", groups={"registration"})
+     * @Assert\NotBlank(groups={"registration"})
+     * @Assert\NotNull(groups={"registration"})
+     */
+    private $plainPassword;
+
+    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $token;
+
+
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $resetToken;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $activationToken;
+
 
     public function getId(): ?int
     {
@@ -249,6 +269,43 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setToken(?string $token): self
     {
         $this->token = $token;
+
+        return $this;
+    }
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
+    }
+
+    public function setPlainPassword($plainPassword)
+    {
+        $this->plainPassword = $plainPassword;
+
+        return $this;
+    }
+
+
+
+    public function getResetToken(): ?string
+    {
+        return $this->resetToken;
+    }
+
+    public function setResetToken(?string $resetToken): self
+    {
+        $this->resetToken = $resetToken;
+
+        return $this;
+    }
+
+    public function getActivationToken(): ?string
+    {
+        return $this->activationToken;
+    }
+
+    public function setActivationToken(?string $activationToken): self
+    {
+        $this->activationToken = $activationToken;
 
         return $this;
     }

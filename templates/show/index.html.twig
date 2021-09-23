@@ -3,73 +3,74 @@
 
 	<div class="container-fluid py-5 trick-bg text-center">
 		<div class="container-lg px-0" id="trickPage">
-			<img class=" justify-content-center align-items-center " src={{ trick.mainImage }} alt="{{ trick.name }}">
-			<div class="text-center">
-				<h1>{{ trick.name }}
-				</h1>
+			<div class="row d-flex flex-column justify-content-center align-items-center" id="trickMainImg" style="background: url('{% if trick.mainImage is not null %}{{ asset('media/uploads/tricks/trick_' ~ trick.id ~ '/' ~ trick.mainImage) }}{% elseif trick.images is not empty %}{{ asset('media/uploads/tricks/trick_' ~ trick.id ~ '/' ~ trick.images[0].name) }}{% else %}{{ asset('media/images/home.jpg') }}{% endif %}');">
+				<div class="text-center">
+					<h1>{{ trick.name }}
+					</h1>
+				</div>
 			</div>
 		</div>
-	</div>
 
-	<div class="row py-5 px-2 justify-content-center" id="trickMedia">
-		<div class="media-slider mb-3 mx-2">
-			<img src={{ trick.mainImage }} alt={{ trick.name }} class=" img-thumbnail trick-media" data-toggle=" modal" data-target=" #modalGallery" id=" 1" width=" 250">
-		</div>
-		<div class="media-slider mb-3 mx-2">
-			<img src={{ trick.mainImage }} alt={{ trick.name }} class=" img-thumbnail trick-media" data-toggle=" modal" data-target=" #modalGallery" id=" 1" width=" 250">
-		</div>
-		<div class="media-slider mb-3 mx-2">
-			<iframe class="trick-media" id="3" src="https://www.youtube.com/embed/AzJPhQdTRQQ" width="250" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
-		</div>
-	</div>
-
-
-	<div class="row py-3 d-flex flex-column align-items-center pb-0 text-justify" id="trickInfos">
-		<p>{{ trick.description | nl2br }}</p>
-		<div class="row py-3 justify-content-center" id="trickBadges">
-			By :
-
-			{{ trick.author.firstName }}
-			{{ trick.author.lastName }}
-
-			<div class="badge badge-light ml-4 mr-2" id="trickDates">
-				Created at:
-				{{ trick.createdat|format_datetime() }}
-				<br>
-			</div>
-		</div>
-	</div>
-	<div class="row py-3 justify-content-center" id="trickComments">
-		{% if trick.comments is not empty %}
-			{% for comment in trick.comments %}
-				<div class="d-flex justify-content-start align-items-center mb-3 w-100 trick-comment">
-					<div class="text-justify trick-comment-content mb-2">
-						<p>{{ comment.content }}</p>
-
-					</div>
-
+		<div class="row py-5 px-2 justify-content-center" id="trickMedia">
+			{% for image in trick.images %}
+				<div class="media-slider mb-3 mx-2">
+					<img class="img-thumbnail trick-media" data-toggle="modal" data-target="#modalGallery" id="{{ loop.index }}" width="175" src="{{ asset('media/uploads/tricks/trick_' ~ trick.id ~ '/' ~ image.name) }} " alt=" {{ trick.name }} "/>
 				</div>
 			{% endfor %}
-		{% else %}
-			<p>No comments. Be the first to discuss about this trick !</p>
-		{% endif %}
-		<div class="row py-3 justify-content-center text-center" id="trickCommentForm">
-			{% if app.user %}
-				{{ form_start(form) }}
-				<div class='d-flex flex-column flex-md-row justify-content-center align-items-center'>
-					{{ form_row(form.content) }}
-					<button type="submit" class="btn btn-info ml-4">Leave a comment</button>
+			{% for video in trick.videos %}
+				<div class=" media-slider mb-3 mx-2">
+					<iframe class="trick-media" id="{{ loop.index + trick.images|length }}" src="{{ video.name }}" width="250" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen"></iframe>
 				</div>
-				{{ form_end(form) }}
+			{% endfor %}
+		</div>
 
+
+		<div class="row py-3 d-flex flex-column align-items-center pb-0 text-justify" id="trickInfos">
+			<p>{{ trick.description | nl2br }}</p>
+			<div class="row py-3 justify-content-center" id="trickBadges">
+				By :
+
+				{{ trick.author.firstName }}
+				{{ trick.author.lastName }}
+
+				<div class="badge badge-light ml-4 mr-2" id="trickDates">
+					Created at:
+					{{ trick.createdat|format_datetime() }}
+					<br>
+				</div>
+			</div>
+		</div>
+		<div class="row py-3 justify-content-center" id="trickComments">
+			{% if trick.comments is not empty %}
+				{% for comment in trick.comments %}
+					<div class="d-flex justify-content-start align-items-center mb-3 w-100 trick-comment">
+						<div class="text-justify trick-comment-content mb-2">
+							<p>{{ comment.content }}</p>
+
+						</div>
+
+					</div>
+				{% endfor %}
 			{% else %}
-				<p>
-					<a href="">Sign up
-					</a>
-					or
-					<a href="">sign in
-					</a>
-					to leave a comment !
-				</p>
+				<p>No comments. Be the first to discuss about this trick !</p>
 			{% endif %}
-		{% endblock %}
+			<div class="row py-3 justify-content-center text-center" id="trickCommentForm">
+				{% if app.user %}
+					{{ form_start(form) }}
+					<div class='d-flex flex-column flex-md-row justify-content-center align-items-center'>
+						{{ form_row(form.content) }}
+						<button type="submit" class="btn btn-info ml-4">Leave a comment</button>
+					</div>
+					{{ form_end(form) }}
+
+				{% else %}
+					<p>
+						<a href="">Sign up
+						</a>
+						or
+						<a href="">sign in
+						</a>
+						to leave a comment !
+					</p>
+				{% endif %}
+			{% endblock %}

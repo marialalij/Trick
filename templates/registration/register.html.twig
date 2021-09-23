@@ -7,18 +7,26 @@
 	<div class="container login-div">
 		<h1 class="h3 mb-4 font-weight-normal text-center my-md-5"></h1>
 		<div class="col-md-6 mx-auto mb-5 login-form text-center">
+			<h1 class="h3 mb-3 font-weight-normal">Register
+				<i class="fas fa-user"></i>
+			</h1>
+
+
 			{% for message in app.flashes('success') %}
 				<div class="alert alert-info w-100 mt-3">
 					{{ message }}
 				</div>
 			{% endfor %}
-			{{ form_start(form) }}
-			{{ form_row(form) }}
+			{{ form_row(form.userName) }}
+			{{ form_row(form.email) }}
+			{{ form_row(form.password) }}
+
 			<button type="submit" class="btn btn-info mb-2">Create an account</button>
 
 			{{ form_end(form) }}
 
-			<a class="custom-link" href="" id="alreadyAccount">Already an account ?</a>
+			<a class="custom-link" href="{{ path('app_login') }}" id="alreadyAccount">Already an account ?</a>
+
 
 		</div>
 	</div>

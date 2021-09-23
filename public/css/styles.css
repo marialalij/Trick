@@ -1,9 +1,7 @@
 
-
-
 body {
   position: relative;
-  background-color: #9b2323;
+
 }
 
 .row {
@@ -23,7 +21,7 @@ body {
 /******* Nav *********/
 
 .navbar-brand {
-  color: #9b2323 !important;
+  color: #3f5c68 !important;
 }
 
 .nav-separator {

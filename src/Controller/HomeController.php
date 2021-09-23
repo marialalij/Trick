@@ -12,9 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class HomeController extends AbstractController
 {
-    /**
-     * @Route("/home", name="home")
-     */
+
     /**
      * @Route("/", name="home")
      */
@@ -27,33 +25,6 @@ class HomeController extends AbstractController
 
         return $this->render("pages/home.html.twig", [
             'tricks' => $tricks,
-
-        ]);
-    }
-
-    /**
-     * @Route("/show/{id}", name="show")
-     */
-
-    public function show($id, Request $request): Response
-    {
-        $rep = $this->getDoctrine()->getRepository(Trick::class);
-        $trick = $rep->find($id);
-        $comment = new Comment();
-        $form = $this->createForm(CommentType::class, $comment);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-
-            $em->persist($comment);
-            $em->flush();
-
-            return $this->redirectToRoute('home');
-        }
-        return $this->render('show/index.html.twig', [
-            'trick' => $trick,
-            'form' => $form->createView(),
 
         ]);
     }

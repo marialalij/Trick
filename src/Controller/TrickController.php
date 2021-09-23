@@ -13,6 +13,7 @@ use App\Entity\Comment;
 use App\Form\CommentType;
 use App\Repository\TrickRepository;
 use App\Service\CommentService;
+use App\Service\TrickService;
 
 class TrickController extends AbstractController
 {
@@ -23,15 +24,19 @@ class TrickController extends AbstractController
     private $trickRepository;
 
     /**
+     * @var TrickService
+     */
+    private $trickService;
+
+    /**
      * @var CommentService
      */
     private $commentService;
 
-
-
-    public function __construct(TrickRepository $trickRepository, CommentService $commentService)
+    public function __construct(TrickRepository $trickRepository, TrickService $trickService, CommentService $commentService)
     {
         $this->trickRepository = $trickRepository;
+        $this->trickService = $trickService;
         $this->commentService = $commentService;
     }
 
@@ -56,16 +61,17 @@ class TrickController extends AbstractController
         $trick = new Trick();
         $form = $this->createForm(TrickType::class, $trick);
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
 
-            $em->persist($trick);
-            $em->flush();
+        if ($form->isSubmitted() && $form->isValid()) {
+            $trick = $this->trickService->handleCreateOrUpdate($trick, $form, $this->getUser());
+            $this->addFlash('success', 'Your trick is posted !');
 
             return $this->redirectToRoute('home');
         }
+
         return $this->render('trick/new.html.twig', [
-            "form" => $form->createView()
+            'trick' => $trick,
+            'form' => $form->createView(),
         ]);
     }
 
@@ -131,5 +137,22 @@ class TrickController extends AbstractController
         $em->flush();
 
         return $this->redirectToRoute("home");
+    }
+
+    /**
+     * Display loggued user tricks.
+     *
+     * @Route("user/tricks", name="user.tricks")
+     */
+    public function tricks(): Response
+    {
+
+        $rep = $this->getDoctrine()->getRepository(Trick::class);
+        $tricks = $rep->findAll();
+
+        return $this->render("trick/tricks.html.twig", [
+            'tricks' => $tricks,
+
+        ]);
     }
 }
