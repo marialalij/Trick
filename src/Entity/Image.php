@@ -2,11 +2,12 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\Collection;
 use App\Repository\ImageRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 /**
  * @ORM\Entity(repositoryClass=ImageRepository::class)
@@ -25,17 +26,13 @@ class Image
      */
     private $name;
 
-    private $file;
-
-    public function __construct()
-    {
-        $this->tricks = new ArrayCollection();
-    }
-
     /**
      * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="images",cascade={"persist", "remove"})
      */
+
     private $trick;
+
+
 
     public function getId(): ?int
     {
@@ -53,7 +50,6 @@ class Image
 
         return $this;
     }
-
     public function getTrick(): ?Trick
     {
         return $this->trick;
@@ -62,39 +58,6 @@ class Image
     public function setTrick(?Trick $trick): self
     {
         $this->trick = $trick;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Trick[]
-     */
-    public function getTricks(): Collection
-    {
-        return $this->tricks;
-    }
-
-
-
-    public function getFile()
-    {
-        return $this->file;
-    }
-
-    public function setFile(UploadedFile $file)
-    {
-        $this->file = $file;
-
-        return $this;
-    }
-
-
-    public function addTrick(Trick $trick): self
-    {
-        if (!$this->tricks->contains($trick)) {
-            $this->tricks[] = $trick;
-            $trick->addImage($this);
-        }
 
         return $this;
     }
