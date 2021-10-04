@@ -48,7 +48,7 @@ class UserService
             $user->setPassword(
                 $this->passwordEncoder->encodePassword($user, $password)
             );
-            $user->setResetToken(null);
+            $user->setToken(null);
             $this->entityManager->persist($user);
             $this->entityManager->flush();
         } catch (\Exception $exception) {
