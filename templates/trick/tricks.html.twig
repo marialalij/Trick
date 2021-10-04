@@ -19,7 +19,7 @@
 			<div class="card mb-3">
 				<div class="row no-gutters">
 					<div class="col-md-4">
-						<a href=" "></a>
+						<img class="display-top img-fluid" img src="{{ asset(trick.mainimage) }}" alt="Image du trick">
 					</div>
 					<div class="col-md-8">
 						<div class="card-body">
@@ -27,32 +27,30 @@
 								<h5 class="card-title">
 									<a href="{{ path('trick.show', {id: trick.id }) }}">{{ trick.name }}<a/></h5>
 									<div class="card-actions trick-actions px-2 py-1">
-										<a href="{{ path('trick_edit', {id: trick.id}) }}">
-											<i class="fas fa-pencil-alt"></i>
-										</a>
+										<a href="{{ path('tricks_update', {'slug' : trick.slug}) }}">Editer</a>
+										<i class="fas fa-pencil-alt"></i>
+									</a>
 
-										<a href="{{ path('trick_delete',{"id":trick.id}) }}">
-											<i class="fas fa-trash-alt"></i>
-										</a>
-									</div>
+
 								</div>
-								<p class="card-text trick-description">{{ trick.description|slice(0,100) }}...</p>
-								<p class="card-text">
-									<small class="text-muted">Created at:
-										{{ trick.createdat|format_datetime() }}
-										{% if trick.createdat != trick.updatedat %}
-											<br>
-											Last update:
-											{{ trick.updatedat|format_datetime() }}
-										{% endif %}
-
-									</small>
-								</p>
-
 							</div>
+							<p class="card-text trick-description">{{ trick.description|slice(0,100) }}...</p>
+							<p class="card-text">
+								<small class="text-muted">Created at:
+									{{ trick.createdat|format_datetime() }}
+									{% if trick.createdat != trick.updatedat %}
+										<br>
+										Last update:
+										{{ trick.updatedat|format_datetime() }}
+									{% endif %}
+
+								</small>
+							</p>
+
 						</div>
 					</div>
 				</div>
-			{% endfor %}
-		</div>
-	{% endblock %}
+			</div>
+		{% endfor %}
+	</div>
+{% endblock %}
