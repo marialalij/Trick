@@ -106,4 +106,67 @@ class TrickService
         }
         return false;
     }
+
+
+
+    public function update(Trick $trick, FormInterface $form)
+    {
+
+        $form->handleRequest($this->request->getCurrentRequest());
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            // encode the plain password
+            $image = $form->get('mainImage')->getData();
+
+            if ($form->get('mainImage')->getData() !== null) {
+                // this is needed to safely include the file name as part of the URL
+                $newFilename = $this->FileUploader->upload($image);
+
+                $trick->setMainImage($newFilename);
+            } else {
+                $image = 'image1.jpg';
+                $trick->setMainImage($image);
+            }
+
+            // On récupère les images transmises
+            $images = $form->get('images')->getData();
+
+            // On boucle sur les images
+            foreach ($images as $image) {
+                $newFilename = $this->FileUploader->upload($image);
+
+                // On crée l'image dans la base de données
+                $img = new Image();
+                $img->setName($newFilename);
+                $img->setTrick($trick);
+
+                $this->entityManager->persist($img);
+            }
+
+            $videos = $form->get('video')->getData();
+
+            if ($videos !== null) {
+                if (preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $videos, $match)) {
+                    $video = new Video();
+                    $video_id = $match[1];
+                    $video->setUrl('https://www.youtube.com/embed/' . $video_id);
+                    $video->setTrick($trick);
+
+                    $this->entityManager->persist($video);
+                }
+            }
+
+            $trick->setUpdatedAt(new \DateTime('now'));
+            $trick->setAuthor($this->tokenStorage->getToken()->getUser());
+
+            $this->entityManager->persist($trick);
+            $this->entityManager->flush();
+
+
+            return true;
+        }
+
+        return false;
+    }
 }

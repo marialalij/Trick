@@ -43,10 +43,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $password;
 
-    /**
-     * @ORM\Column(type="json", nullable=true)
-     */
-    private $role = [];
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -91,8 +87,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      *
      */
     private $slug;
-
-
 
     public function getEmail(): ?string
     {

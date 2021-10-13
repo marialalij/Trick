@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use App\Repository\VideoRepository;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\Common\Collections\Collection;
 
 
@@ -33,6 +34,7 @@ class Video
 
     /**
      * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="videos",cascade={"persist", "remove"})
+     * @JoinColumn(onDelete="CASCADE")
      */
     private $trick;
 

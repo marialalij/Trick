@@ -49,13 +49,17 @@
 								<a class="nav-link" id="dashNavAdd" href="{{ path('user.trick.new') }}">
 									<i class="fas fa-plus-square mr-2"></i>Add trick</a>
 							</li>
+							<li class="nav-item {% if nav is defined and nav == 'profile' %}active{% endif %}">
+								<a class="nav-link" id="dashNavProfile" href="{{ path('user.profile', {userName: app.user.userName }) }}">
+									<i class="fas fa-user mr-2"></i>Profile</a>
+							</li>
 							<li class="nav-item {% if nav is defined and nav == 'myComments' %}active{% endif %}">
 								<a class="nav-link" id="dashNavComments" href="{{ path('user.comments') }}">
 									<i class="fas fa-comment-dots mr-2"></i>My comments</a>
 							</li>
 
 							<li class="nav-item">
-								<a class="nav-link" id="dashNavLogout" href="{{ path('app_logout') }}">
+								<a class="nav-link" id="dashNavLogout" href="">
 									<i class="fas fa-power-off mr-2"></i>Log out</a>
 							</li>
 						</body>
