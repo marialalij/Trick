@@ -74,4 +74,19 @@ class UserService
             throw $exception;
         }
     }
+
+    /**
+     * Handle user profile edition.
+     *
+     * @return void
+     */
+    public function handleProfileEdition(User $user, FormInterface $form)
+    {
+        try {
+            $this->entityManager->persist($user, $form);
+            $this->entityManager->flush();
+        } catch (\Exception $exception) {
+            throw $exception;
+        }
+    }
 }
