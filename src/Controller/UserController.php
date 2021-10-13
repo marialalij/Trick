@@ -232,4 +232,15 @@ class UserController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+    /**
+     * Display user profile.
+     * @Route("/user/profile/{userName}", name="user.profile")
+     */
+    public function profile(User $user): Response
+    {
+        return $this->render('user/profile.html.twig', [
+            'user' => $user,
+            'nav' => 'profile',
+        ]);
+    }
 }

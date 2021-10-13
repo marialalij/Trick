@@ -16,7 +16,7 @@ class ImageType extends AbstractType
     {
 
         $builder
-            ->add('image', FileType::class, [
+            ->add('name', FileType::class, [
                 'attr' => [
                     'multiple' => true,
                     'placeholder' => 'Modifier ou ajouter une image',

@@ -14,23 +14,30 @@ use App\Entity\Video;
 use Cocur\Slugify\Slugify;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use DateTime;
 use Faker;
 
 class AppFixtures extends Fixture
 {
+
+    /**
+     * @var UserPasswordEncoderInterface
+     */
+    private $encoder;
     /**
      * @var UploaderHelper
      */
-    private $uploaderHelper;
-
     private $faker;
 
 
-    public function __construct(FileUploader $FileUploader)
+
+    public function __construct(UserPasswordEncoderInterface $encoder, FileUploader $FileUploader)
     {
 
+        $this->encoder = $encoder;
         $this->uploaderHelper = $FileUploader;
+        $this->faker = \Faker\Factory::create();
     }
 
     public function load(ObjectManager $manager)
@@ -38,27 +45,63 @@ class AppFixtures extends Fixture
         // $product = new Product();
         // $manager->persist($product);
 
-        $faker = Faker\Factory::create();
-        $users = [];
+        $roles = [['ROLE_ADMIN'], ['ROLE_USER'], ['ROLE_MODERATOR']];
 
         for ($i = 0; $i < 10; $i++) {
             $user = new User();
-            $user->setEmail($faker->email());
-            $user->setPassword($faker->password());
-            $user->setFirstName($faker->firstName());
-            $user->setLastName($faker->lastName());
-            $user->setAvatar($faker->imageUrl());
+            $password = $this->encoder->encodePassword($user, $this->faker->word);
+            $user->setUsername($this->faker->word)
+                ->setEmail($this->faker->email)
+                ->setPassword($password)
+                ->setFirstName($this->faker->firstName(null))
+                ->setLastName($this->faker->lastName)
+                ->setAvatar("image1.jpg")
+                ->setRoles($roles[mt_rand(0, 2)]);
             $manager->persist($user);
-            $users[] = $user;
-        }
-        $categories = [];
 
-        for ($i = 0; $i < 10; $i++) {
-            $category = new Category();
-            $category->setName($faker->text(255));
-            $manager->persist($category);
-            $categories[] = $category;
+            $this->addReference('user' . $i, $user);
         }
+
+        $fakeUsers = [
+            'User' => [
+                'User1*',
+                ['ROLE_USER'],
+            ],
+            'Moderator' => [
+                'Moderator1*',
+                ['ROLE_MODERATOR'],
+            ],
+            'Admin' => [
+                'Admin1*',
+                ['ROLE_ADMIN'],
+            ],
+        ];
+
+        foreach ($fakeUsers as $fakeUser) {
+            $user = new User();
+            $password = $this->encoder->encodePassword($user, $fakeUser[0]);
+            $user->setUsername(array_search($fakeUser, $fakeUsers, true))
+                ->setEmail($this->faker->email)
+                ->setPassword($password)
+                ->setRoles($fakeUser[1]);
+            $manager->persist($user);
+        }
+        $manager->flush();
+
+        //Category
+        $grabs = new Category();
+        $rotations = new Category();
+        $flips = new Category();
+
+        $grabs->setName('Grabs');
+        $rotations->setName('rotations');
+        $flips->setName('flips');
+
+        $manager->persist($grabs);
+        $manager->persist($rotations);
+        $manager->persist($flips);
+
+        $manager->flush();
 
         //Tricks
         $image = new Image();

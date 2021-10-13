@@ -17,8 +17,10 @@ use App\Repository\TrickRepository;
 use App\Repository\ImageRepository;
 use App\Service\CommentService;
 use App\Service\TrickService;
-use App\Service\UploadImgService;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+
+
 
 class TrickController extends AbstractController
 {
@@ -86,7 +88,7 @@ class TrickController extends AbstractController
 
     /**
      * Handle trick page and new comment creation.
-     * @Route("/trick{id}", name="trick.show")
+     * @Route("/trick{id}/{slug}", name="trick.show")
      */
     public function show(Trick $trick, Request $request): Response
     {
@@ -101,7 +103,7 @@ class TrickController extends AbstractController
 
             return $this->redirect($this->generateUrl('home', [
                 'id' => $trick->getId(),
-
+                'slug' => $trick->getName(),
             ]));
         }
         $images = $this->entityManager->getRepository(Image::class)->findBy(['trick' => $trick]);
@@ -134,5 +136,44 @@ class TrickController extends AbstractController
             'tricks' => $tricks,
 
         ]);
+    }
+
+
+    /**
+     * @Route("/update_trick/{id}", name="update_trick")
+     */
+    public function trickUpdate(Trick $trick, Request $request)
+
+    {
+
+        $imageView = $this->entityManager->getRepository(Image::class)->findBy(['trick' => $trick]);
+        $videoView = $this->entityManager->getRepository(Video::class)->findBy(['trick' => $trick]);
+
+        $form = $this->createForm(TrickType::class, $trick);
+
+        if ($this->trickService->update($trick, $form) === true) {
+            return $this->redirectToRoute('trick.show', [
+                'id' => $trick->getId(),
+                'slug' => $trick->getSlug(),
+            ]);
+        }
+        return $this->render('trick/edit.html.twig', [
+            'form' => $form->createView(),
+            'trick' => $trick,
+            'imageView' => $imageView,
+            'videoView' => $videoView,
+        ]);
+    }
+    /**
+     * @Route("/delete_trick/{id}", name="delete_trick")
+     */
+    public function deleteTrick(Trick $id)
+    {
+
+        $this->entityManager->remove($id);
+        $this->entityManager->flush();
+
+        $this->addFlash('success', 'Le Trick a bien était supprimé');
+        return $this->redirectToRoute('home');
     }
 }
