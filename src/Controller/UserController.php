@@ -19,6 +19,8 @@ use App\Service\UserService;
 use App\Form\NewPasswordType;
 use App\Form\PasswordFormType;
 use App\Form\ResetPasswordType;
+use App\Form\UserType;
+
 
 
 class UserController extends AbstractController
@@ -241,6 +243,33 @@ class UserController extends AbstractController
         return $this->render('user/profile.html.twig', [
             'user' => $user,
             'nav' => 'profile',
+        ]);
+    }
+
+
+    /**
+     * Handle user profile edition.
+     * @Route("/user/edit/{userName}", name="user.edit")
+     * @param $user User 
+     */
+    public function edit(Request $request, User $user): Response
+    {
+        $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->userService->handleProfileEdition($user, $form);
+            $this->addFlash('success', 'Your profile has been updated !');
+
+            return $this->redirectToRoute('user.profile', [
+                'userName' => $user->getUserName(),
+            ]);
+        }
+
+        return $this->render('user/edit.html.twig', [
+            'user' => $user,
+            'nav' => 'profile',
+            'form' => $form->createView(),
         ]);
     }
 }
