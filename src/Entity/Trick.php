@@ -52,8 +52,7 @@ class Trick
 
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="tricks",cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="tricks")
      */
     private $author;
 

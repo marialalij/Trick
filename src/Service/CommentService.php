@@ -39,4 +39,19 @@ class CommentService
             throw $exception;
         }
     }
+
+    /**
+     * comment deletion in database.
+     *
+     * @return void
+     */
+    public function DeleteComment(Comment $comment)
+    {
+        try {
+            $this->entityManager->remove($comment);
+            $this->entityManager->flush();
+        } catch (Exception $exception) {
+            throw $exception;
+        }
+    }
 }

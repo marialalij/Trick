@@ -7,31 +7,22 @@
 {% endblock %}
 
 {% block body %}
-	<div class="px-4 py-4 dashboard-div" id="userComments">
-		{% for message in app.flashes('success') %}
-			<div class="alert alert-info w-100 mt-3 text-center">
-				{{ message }}
-			</div>
-		{% endfor %}
-		{% for comment in comments %}
+<div class="px-4 py-4 dashboard-div" id="userComments">
+	{% for message in app.flashes('success') %}
+		<div class="alert alert-info w-100 mt-3 text-center">
+			{{ message }}
+		</div>
+	{% endfor %}
+	{% for comment in comments %}
 
-			<div class="text-justify trick-comment-content mb-3 mx-auto">
-				<p>{{ comment.content }}</p>
-				<p class="pr-2 mb-0">
-					<a class="custom-link" href="{{ path('trick.show', {id: comment.trick.id}) }}">
-						trick:
-						{{ comment.trick.name }}</a>
-					-
-					{{ comment.createdAt|format_datetime(locale='us') }}
-					-
+		<div class="text-justify trick-comment-content mb-3 mx-auto">
+			<p>{{ comment.content }}</p>
+			<p class="pr-2 mb-0">{{ comment.trick.name }}
+			</p>
+		</a>
+		-
+		{{ comment.createdAt|format_datetime(locale='us') }}
+		-
 
-				</p>
-			</div>
-
-
-		{% endfor %}
-	</div>
-
-	{% include "comment/delete.html.twig" %}
-
-{% endblock %}
+	</p>
+</div>{% endfor %}</div>{% include "comment/delete.html.twig" %}{% endblock %}

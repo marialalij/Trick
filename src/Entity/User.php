@@ -44,6 +44,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $password;
 
 
+
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
@@ -71,9 +72,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $enabled;
 
     /**
-     * @Assert\Length(min="6", max="30", groups={"registration"})
-     * @Assert\NotBlank(groups={"registration"})
-     * @Assert\NotNull(groups={"registration"})
+     * @Assert\Length(min="6", max="30")
      */
     private $plainPassword;
 
@@ -87,6 +86,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      *
      */
     private $slug;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Trick::class, mappedBy="author")
+     */
+    private $tricks;
+
+
+    /**
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="author", orphanRemoval=true)
+     */
+    private $comment;
 
     public function getEmail(): ?string
     {
@@ -104,6 +114,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __construct()
     {
         $this->roles = ['ROLE_USER'];
+        $this->tricks = new ArrayCollection();
     }
 
 
@@ -298,6 +309,38 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setSlug(string $slug): self
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Trick[]
+     */
+    public function getTricks(): Collection
+    {
+        return $this->tricks;
+    }
+
+
+    public function addTrick(Trick $trick): self
+    {
+        if (!$this->tricks->contains($trick)) {
+            $this->tricks[] = $trick;
+            $trick->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTrick(Trick $trick): self
+    {
+        if ($this->tricks->contains($trick)) {
+            $this->tricks->removeElement($trick);
+            // set the owning side to null (unless already changed)
+            if ($trick->getAuthor() === $this) {
+                $trick->setAuthor(null);
+            }
+        }
 
         return $this;
     }

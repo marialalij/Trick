@@ -19,15 +19,15 @@
 			<div class="card mb-3">
 				<div class="row no-gutters">
 					<div class="col-md-4">
-						<img class="display-top img-fluid" img src="{{ asset(trick.mainimage) }}" alt="Image du trick">
+						<img class="display-top img-fluid" img src="/images/{{ trick.mainImage }}" alt="Image du trick">
 					</div>
 					<div class="col-md-8">
 						<div class="card-body">
 							<div class="d-flex justify-content-between align-items-center">
 								<h5 class="card-title">
-									<a href="{{ path('trick.show', {id: trick.id }) }}">{{ trick.name }}<a/></h5>
+									<a href="{{ path('trick.show', {id: trick.id, slug: trick.slug }) }}">{{ trick.name }}<a/></h5>
 									<div class="card-actions trick-actions px-2 py-1">
-										<a href="{{ path('tricks_update', {'slug' : trick.slug}) }}">Editer</a>
+										<a href="{{ path('update_trick', {'id': trick.id}) }}">Editer</a>
 										<i class="fas fa-pencil-alt"></i>
 									</a>
 

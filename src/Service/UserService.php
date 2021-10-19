@@ -7,6 +7,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
+use App\helper\FileUploader;
 
 class UserService
 {
@@ -25,16 +27,21 @@ class UserService
      */
     private $tokenGenerator;
 
-    /**
-     * @var ImageService
-     */
-    private $imageService;
+    /** FileUploader */
+    /** @var FileUploader */
+    private $FileUploader;
 
-    public function __construct(EntityManagerInterface $entityManager, UserPasswordEncoderInterface $passwordEncoder, TokenGeneratorInterface $tokenGenerator)
+    /** @var Request */
+    private $request;
+
+
+    public function __construct(EntityManagerInterface $entityManager, UserPasswordEncoderInterface $passwordEncoder, TokenGeneratorInterface $tokenGenerator, FileUploader $FileUploader, RequestStack $request)
     {
         $this->entityManager = $entityManager;
         $this->passwordEncoder = $passwordEncoder;
         $this->tokenGenerator = $tokenGenerator;
+        $this->FileUploader = $FileUploader;
+        $this->request = $request;
     }
 
     /**
@@ -83,6 +90,22 @@ class UserService
     public function handleProfileEdition(User $user, FormInterface $form)
     {
         try {
+            $form->handleRequest($this->request->getCurrentRequest());
+
+            if ($form->isSubmitted() && $form->isValid()) {
+
+                $avatar = $form->get('avatar')->getData();
+
+                if ($avatar === null) {
+                    $avatar = 'image1.jpg';
+                    $user->setAvatar($avatar);
+                } else {
+                    $newFilename = $this->FileUploader->upload($avatar);
+
+                    $user->setAvatar($newFilename);
+                }
+            }
+
             $this->entityManager->persist($user, $form);
             $this->entityManager->flush();
         } catch (\Exception $exception) {

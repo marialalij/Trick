@@ -255,11 +255,8 @@ class UserController extends AbstractController
     public function edit(Request $request, User $user): Response
     {
         $form = $this->createForm(UserType::class, $user);
-        $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->userService->handleProfileEdition($user, $form);
-            $this->addFlash('success', 'Your profile has been updated !');
+        if ($this->userService->handleProfileEdition($user, $form) === true) {
 
             return $this->redirectToRoute('user.profile', [
                 'userName' => $user->getUserName(),
