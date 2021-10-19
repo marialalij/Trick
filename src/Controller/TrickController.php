@@ -71,8 +71,12 @@ class TrickController extends AbstractController
     public function trickAdd()
     {
 
+
+
         $trick = new Trick();
         $form = $this->createForm(TrickType::class, $trick);
+        $imageView = $this->entityManager->getRepository(Image::class)->findBy(['trick' => $trick]);
+        $videoView = $this->entityManager->getRepository(Video::class)->findBy(['trick' => $trick]);
 
         if ($this->trickService->handle($trick, $form) === true) {
 
@@ -81,6 +85,8 @@ class TrickController extends AbstractController
 
         return $this->render('trick/new.html.twig', [
             'trick' => $trick,
+            'imageView' => $imageView,
+            'videoView' => $videoView,
             'form' => $form->createView(),
         ]);
     }

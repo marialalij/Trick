@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'dashbord.html.twig' %}
 
 {% block title %}SnowTricks -
 	{{ trick.name }}
@@ -58,13 +58,11 @@
 														{% for image in imageView %}
 															<div class="col-lg-4 mb-4 trick">
 																<div class="card">
-																	<a class="float-right change-link ml-2 pt-2" href="{{ path('delete_image', {'id': image.id}) }}">
-																		<i class="fas fa-trash-alt fa-2x text-info"></i>
-																	</a>
+																	<img class="card-img-top home" src="/images/{{ image.name }}" alt="image">
 																	<div
 																		class="card-body test">
-																		{# {% if (app.user) and ((app.userId.id == trick.userid.id)) %} #}
-																		<a class="float-right change-link ml-2 pt-2" href="">
+																		{# {% if (app.user) and ((app.User.id == Trick.author.id)) %} #}
+																		<a class="float-right change-link ml-2 pt-2" href="{{ path('delete_image', {'id': image.id}) }}">
 																			<i class="fas fa-trash-alt fa-2x text-info"></i>
 																		</a>
 																		{# {% endif %}                       #}

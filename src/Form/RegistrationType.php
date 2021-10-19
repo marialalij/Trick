@@ -35,18 +35,6 @@ class RegistrationType extends AbstractType
             ])
             ->add('password', PasswordType::class, [
                 'label' => "Mot de passe"
-            ])
-            ->add('avatar', FileType::class, [
-                'label' => 'Avatar :',
-                'data_class' => null,
-                'attr' => [
-                    'placeholder' => 'Ajouter un avatar'
-                ],
-                'constraints' => [
-                    new Image([
-                        'maxSize' => '5M',
-                    ])
-                ]
             ]);
     }
 
