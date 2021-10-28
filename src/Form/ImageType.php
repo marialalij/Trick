@@ -14,16 +14,16 @@ class ImageType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+
         $builder
-            ->add('file', FileType::class, [
-                'label' => false,
-                'required' => false,
-                'constraints' => [
-                    new ImageConstraint(),
+            ->add('name', FileType::class, [
+                'attr' => [
+                    'multiple' => true,
+                    'placeholder' => 'Modifier ou ajouter une image',
                 ],
+
             ]);
     }
-
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([

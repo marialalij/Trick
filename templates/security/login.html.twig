@@ -8,32 +8,28 @@
 		{% if error %}
 			<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
 		{% endif %}
-
-		{% if app.user %}
-			<div class="mb-3">
-				You are logged in as
-				{{ app.user.username }},
-				<a href="{{ path('app_logout') }}">Logout</a>
-			</div>
-		{% endif %}
 		<div class="container login-div">
 			<h1 class="h3 mb-4 font-weight-normal text-center my-md-5"></h1>
 			<div class="col-md-6 mx-auto mb-5 login-form text-center">
-				<h1 class="h3 mb-3 font-weight-normal">Please sign in
+				<h1 class="h3 mb-3 font-weight-normal">Se Connecter
 					<i class="fas fa-sign-in-alt"></i>
 				</h1>
-				<label for="inputUsername">Username</label>
+				<label for="inputUsername">Nom</label>
 				<input type="text" value="{{ last_username }}" name="userName" id="inputUsername" class="form-control" required autofocus>
-				<label for="inputPassword">Password</label>
+				<label for="inputPassword">mot de passe</label>
 				<input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
 
 				<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-
-				<button class="btn btn-lg btn-primary" type="submit">
-					Sign in
-				</button>
-				<a class="custom-link" href="{{ path('app_forgotten_password') }}" id="forgotPass2">Forgot password ?</a>
+				<div class="my-3">
+					<button class="btn btn-info" type=" submit">
+						se Connecter
+					</button>
+				</div>
+				<a class="custom-link" href="{{ path('register') }}" id="registerLink">s'inscrire</a>
+				<a class="custom-link" href="{{ path('app_forgotten_password') }}" id="forgotPass2">mot de passe oublier?</a>
 			</div>
 		</div>
+
 	</form>
+
 {% endblock %}

@@ -15,16 +15,7 @@ class VideoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('link', TextType::class, [
-                'label' => false,
-                'required' => false,
-                'constraints' => [
-                    new Regex([
-                        'pattern' => '#^((?:https?:)?\/\/)?(?:www\.)?((?:youtube\.com|youtu\.be|dai\.ly|dailymotion\.com|vimeo\.com|player\.vimeo\.com))(\/(?:[\w\-]+\?v=|embed\/|video\/|embed\/video\/)?)([\w\-]+)(\S+)?$#',
-                        'message' => 'You can only use youtube, dailymotion or vimeo video url',
-                    ]),
-                ],
-            ]);
+            ->add('url');
     }
 
     public function configureOptions(OptionsResolver $resolver)

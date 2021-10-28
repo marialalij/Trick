@@ -28,12 +28,12 @@ class Comment
     private $createdAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="comments",cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="comments")
      */
     private $trick;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="comments",cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="comments")
      */
     private $author;
 

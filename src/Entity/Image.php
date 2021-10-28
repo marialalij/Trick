@@ -8,6 +8,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping\JoinColumn;
 
 /**
  * @ORM\Entity(repositoryClass=ImageRepository::class)
@@ -28,6 +29,7 @@ class Image
 
     /**
      * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="images",cascade={"persist", "remove"})
+     * @JoinColumn(onDelete="CASCADE")
      */
 
     private $trick;

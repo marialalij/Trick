@@ -1,15 +1,26 @@
 
-body {
-  position: relative;
 
+.logo {
+  max-height: 50px;
 }
 
-.row {
-  margin-left: unset;
-  margin-right: unset;
+footer {
+  background-color:black;
+  color: white;
+  padding-top: 40px;
+  padding-bottom: 30px;
 }
 
+.container{
+  margin-top: 11rem;
+  margin-bottom: 3rem;
+}
 
+h2{
+  color: rgb(35, 161, 165);
+  letter-spacing: 3px;
+   text-shadow: 4px 3px 0px #fff, 9px 8px 0px rgba(0,0,0,0.15);
+}
 
 
 @media (max-width: 576px) {
@@ -18,54 +29,7 @@ body {
   }
 }
 
-/******* Nav *********/
 
-.navbar-brand {
-  color: #3f5c68 !important;
-}
-
-.nav-separator {
-  position: relative;
-  margin-left: 1rem;
-}
-
-.nav-link .active a {
-  font-weight: bold !important;
-  color: #348682 !important;
-}
-
-@media (min-width: 576px) {
-  .nav-separator::before {
-    content: "";
-    position: absolute;
-    left: -10%;
-    height: 60%;
-    width: 2px;
-    background-color: #89acaa;
-  }
-}
-
-@media (max-width: 576px) {
-  nav {
-    display: flex;
-    flex-direction: row;
-  }
-}
-
-/******* Footer *********/
-
-footer {
-  background-color: black;
-  color: #89acaa;
-  font-style: italic;
-  font-size: 0.7rem;
-}
-
-@media (max-width: 576px) {
-  footer {
-    display: none !important;
-  }
-}
 
 /*************************
 ******* Home Page ********
@@ -79,10 +43,10 @@ footer {
 }
 
 .homeHeader {
-  background: url("../media/images/snow.jpg") no-repeat fixed;
+  background: url("../images/snow.jpg") no-repeat fixed;
   background-position: top;
   position: relative;
-  height: 94vh;
+  height: 95vh;
 }
 
 
@@ -93,26 +57,26 @@ footer {
   padding: 5rem 0;
 }
 
-.trick-card-div {
+.trick-card-div { 
   padding-right: 0.5rem;
   padding-left: 0.5rem;
 }
 
 #trickList .card {
-  box-shadow: grey 0px 0px 20px -7px;
-  border-radius: 2%;
+  box-shadow: rgb(0, 0, 0) 0px 0px 20px -7px;
+  border-radius: 8%;
   transform: scale(1);
-  transition: transform 0.3s;
+  transition: transform 0.7s;
 }
 
 #trickList .card:hover {
-  transform: scale(1.05);
+  transform: scale(1.09);
   transition: transform 0.3s;
 }
 
 #trickList .card-img-top {
   border-radius: 2% 2% 0% 0%;
-  height: 8rem;
+  height: 10rem;
   object-fit: cover;
 }
 
@@ -129,14 +93,14 @@ footer {
 
 #trickList .card-title a:hover,
 #userTricks .card-title a:hover {
-  color: #89acaa;
+  color: #338581;
   transition: color 0.3s;
 }
 
 .loadMoreBtn,
 .loadLessBtn {
-  border: black 1px solid;
-  box-shadow: 1px 1px 3px 1px;
+  border: black 2px solid;
+  box-shadow: 2px 2px 3px 2px;
 }
 
 .fa-spinner {
@@ -154,13 +118,14 @@ footer {
 
 #trickPage,
 #editPage {
-  box-shadow: grey 1px 1px 10px -4px;
+ 
   border-radius: 10px;
   background-color: white;
 }
 
 .trick-bg {
-  background: linear-gradient(to bottom, rgba(34, 34, 34, 1) 0%, rgba(34, 34, 34, 0) 60%);
+ 
+  margin-top: 60px;
 }
 
 #trickMainImg {
@@ -172,21 +137,15 @@ footer {
 }
 
 .trick-actions {
-  border: #89acaa 1px solid;
-  border-radius: 5px;
-  background-color: whitesmoke;
   position: absolute;
   top: 0.5rem;
-  right: 0.5rem;
-}
-
-.return-btn {
-  position: absolute;
-  top: 0.5rem;
-  left: 0.5rem;
 }
 
 
+
+#trickPage h1 {
+  font-size: 2rem;
+}
 
 /* ////// Media div /////// */
 
@@ -296,6 +255,137 @@ footer {
   margin-left: 9rem;
 }
 
+#userModal .modal-dialog {
+  max-width: 75%;
+}
+
+#userModalAvatar {
+  max-width: 100%;
+}
+
+@media (max-width: 767px) {
+  #userModalInfos {
+    text-align: center;
+  }
+  #trickBadges {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  #trickBadges .badge {
+    margin-bottom: 1rem;
+  }
+  #userModal .modal-dialog {
+    max-width: 95%;
+  }
+}
+
+/* ////// Comment div /////// */
+
+#trickCommentForm,
+#trickComments {
+  padding-right: 10rem;
+  padding-left: 10rem;
+}
+
+#trickCommentForm a {
+  text-decoration: none;
+  color: #89acaa;
+  font-size: 1.3rem;
+  font-weight: bold;
+  font-style: italic;
+}
+
+#trickCommentForm a:hover {
+  color: black;
+}
+
+#trickCommentForm form {
+  width: 100%;
+}
+
+#trickCommentForm textarea {
+  height: 5rem;
+}
+
+.textarea-comment {
+  width: 70%;
+  margin-bottom: 0;
+}
+
+.trick-comment-content {
+  background-color: rgba(137, 172, 170, 0.1);
+  border-radius: 5px;
+  padding: 1rem;
+  position: relative;
+  width: 85%;
+}
+
+.trick-comment-content::before {
+  content: '';
+  position: absolute;
+  left: -1rem;
+  top: -0.3rem;
+  border-top: white solid 1rem;
+  border-bottom: rgba(137, 172, 170, 0.1) solid 1rem;
+  border-left: white solid 1rem;
+}
+
+.trick-comment-content p:last-child {
+  font-style: italic;
+  font-weight: bold;
+  font-size: 0.75rem;
+  text-align: right;
+}
+
+.trick-comment-avatar {
+  width: 15%;
+}
+
+.avatar {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+@media (max-width: 991px) {
+  #trickInfos,
+  #trickCommentForm,
+  #trickComments {
+    padding-right: 4rem;
+    padding-left: 4rem;
+  }
+  
+  #trickPage hr {
+    margin-right: 4rem;
+    margin-left: 4rem;
+  }
+}
+
+@media (max-width: 768px) {
+  #trickInfos,
+  #trickCommentForm,
+  #trickComments {
+    padding-right: 2rem;
+    padding-left: 2rem;
+  }
+  
+  #trickPage hr {
+    margin-right: 2rem;
+    margin-left: 2rem;
+  }
+  
+  .avatar {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+  }
+  
+  .textarea-comment {
+    width: 100%;
+  }
+}
 
 @media (max-width: 576px) {
   .avatar {
@@ -320,6 +410,7 @@ footer {
     padding-right: 1rem;
   }
 }
+
 
 /*************************
 **** New Trick Page ******
@@ -396,17 +487,18 @@ footer {
     display: none;
   }
 }
-
 /*************************
 ****** Login Page ********
 *************************/
 
 .login-div {
   min-height: 79vh;
+ 
 }
 
 .login-form {
   border: black 1px solid;
+  margin-top: 40px;
   box-shadow: grey 1px 1px 6px 0px;
   padding: 2rem 3rem;
   border-radius: 2px;
@@ -422,8 +514,145 @@ footer {
   margin-bottom: 0 !important;
 }
 
-#forgotPass2 {
-  display: block;
+
+
+@media (max-width: 576px) {
+  .login-div {
+    margin-bottom: 5rem;
+  }
+}
+
+/* ////// Comment div /////// */
+
+#trickCommentForm,
+#trickComments {
+  padding-right: 10rem;
+  padding-left: 10rem;
+}
+
+#trickCommentForm a {
+  text-decoration: none;
+  color: #89acaa;
+  font-size: 1.3rem;
+  font-weight: bold;
+  font-style: italic;
+}
+
+#trickCommentForm a:hover {
+  color: black;
+}
+
+#trickCommentForm form {
+  width: 100%;
+}
+
+#trickCommentForm textarea {
+  height: 5rem;
+}
+
+.textarea-comment {
+  width: 70%;
+  margin-bottom: 0;
+}
+
+.trick-comment-content {
+  background-color: rgba(137, 172, 170, 0.1);
+  border-radius: 5px;
+  padding: 1rem;
+  position: relative;
+  width: 85%;
+}
+
+.trick-comment-content::before {
+  content: '';
+  position: absolute;
+  left: -1rem;
+  top: -0.3rem;
+  border-top: white solid 1rem;
+  border-bottom: rgba(137, 172, 170, 0.1) solid 1rem;
+  border-left: white solid 1rem;
+}
+
+.trick-comment-content p:last-child {
+  font-style: italic;
+  font-weight: bold;
+  font-size: 0.75rem;
+  text-align: right;
+}
+
+.trick-comment-avatar {
+  width: 15%;
+}
+
+.avatar {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+@media (max-width: 991px) {
+  #trickInfos,
+  #trickCommentForm,
+  #trickComments {
+    padding-right: 4rem;
+    padding-left: 4rem;
+  }
+  
+  #trickPage hr {
+    margin-right: 4rem;
+    margin-left: 4rem;
+  }
+}
+
+@media (max-width: 768px) {
+  #trickInfos,
+  #trickCommentForm,
+  #trickComments {
+    padding-right: 2rem;
+    padding-left: 2rem;
+  }
+  
+  #trickPage hr {
+    margin-right: 2rem;
+    margin-left: 2rem;
+  }
+  
+  .avatar {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+  }
+  
+  .textarea-comment {
+    width: 100%;
+  }
+}
+
+@media (max-width: 576px) {
+  .avatar {
+    width: 3rem;
+    height: 3rem;
+  }
+  
+  .trick-comment-avatar {
+    width: 20%;
+  }
+  
+  #trickCommentForm a {
+    font-size: 1rem;
+  }
+  
+  #trickCommentForm button {
+    margin-top: 1rem;
+  }
+  
+  #trickComments {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+
 }
 
 

@@ -1,0 +1,142 @@
+/*************************
+******* Global ********
+*************************/
+
+#dashboard-nav {
+    background-color: whitesmoke;
+  }
+  
+  #dashboard-top a {
+    height: fit-content;
+  }
+  
+  #dashboard-nav li a {
+    color: #89acaa;
+    text-decoration: none;
+    font-size: 0.9rem;
+  }
+  
+  #dashboard-top {
+    background-color: whitesmoke;
+    height: 59px;
+  }
+  
+  @media (min-width: 768px) {
+    #dashboard-content {
+      height: 85vh;
+    }
+  }
+  
+  @media (max-width: 767px) {
+    #userInfos {
+      margin-top: 3rem;
+    }
+  }
+  
+  @media (min-width: 576px) {
+    .dashboard-div {
+      max-height: 83vh;
+      overflow-y: scroll;
+    }
+    
+    .btn-small {
+      display: none;
+    }
+    
+    #dashboard-nav li:hover,
+    #dashboard-nav .active {
+      background-color: white;
+      border-left: 3px solid #89acaa;
+    }
+    
+    #dashboard-nav .nav-item {
+      padding-left: 1rem;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    #dashboard-nav .nav-link {
+      padding: 0.5rem 0.75rem;
+    }
+    
+    #dashboard-nav {
+      justify-content: center;
+    }
+  }
+  
+  /*************************
+  ******* My Tricks page ********
+  *************************/
+  
+  .user-trick-mainImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  #userTricks .trick-description {
+    font-size: 0.9rem;
+  }
+  
+  .report-nb {
+    color: red;
+  }
+  
+  /*************************
+  ******* Profile page ********
+  *************************/
+  
+  .avatar-input .custom-file {
+    display: none;
+  }
+  
+  #profile li {
+    list-style-type: none;
+  }
+  
+  /*************************
+  ******* stats page ********
+  *************************/
+  
+  .stats-card img {
+    width: 75%;
+    align-self: center;
+    margin-top: 1rem;
+  }
+  
+  /*************************
+  ******* users page ********
+  *************************/
+  
+  #adminUsers {
+    color: #89acaa;
+  }
+  
+  #adminUsers .table {
+    font-size: 0.8rem;
+  }
+  
+  @media (max-width: 576px) {
+    .responsive-table-custom {
+      display: none;
+    }
+    #adminUsers .table {
+      font-size: 0.8rem;
+    }
+  }
+  
+  /*************************
+  ******* reset password page ********
+  *************************/
+  
+  #resetPass a {
+    display: block;
+  }
+  
+  /*************************
+  ******* groups page ********
+  *************************/
+  
+  #newGroup label {
+    margin-right: 1rem;
+  }

@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use Cocur\Slugify\Slugify;
 
 
 /**
@@ -42,10 +43,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $password;
 
-    /**
-     * @ORM\Column(type="json", nullable=true)
-     */
-    private $role = [];
+
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -74,9 +72,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $enabled;
 
     /**
-     * @Assert\Length(min="6", max="30", groups={"registration"})
-     * @Assert\NotBlank(groups={"registration"})
-     * @Assert\NotNull(groups={"registration"})
+     * @Assert\Length(min="6", max="30")
      */
     private $plainPassword;
 
@@ -85,8 +81,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $token;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     *
+     */
+    private $slug;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Trick::class, mappedBy="author")
+     */
+    private $tricks;
 
 
+    /**
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="author", orphanRemoval=true)
+     */
+    private $comment;
 
     public function getEmail(): ?string
     {
@@ -104,8 +114,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __construct()
     {
         $this->roles = ['ROLE_USER'];
+        $this->tricks = new ArrayCollection();
     }
 
+
+    /**
+     * Initialise le slug
+     *
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function initializeSlug()
+    {
+        if (empty($this->slug)) {
+            $slug = new Slugify();
+            $this->slug = $slug->slugify($this->firstName . " " . $this->lastName);
+        }
+    }
 
     /**
      * A visual identifier that represents this user.
@@ -265,6 +290,57 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPlainPassword($plainPassword)
     {
         $this->plainPassword = $plainPassword;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param string $slug
+     * @return $this
+     */
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Trick[]
+     */
+    public function getTricks(): Collection
+    {
+        return $this->tricks;
+    }
+
+
+    public function addTrick(Trick $trick): self
+    {
+        if (!$this->tricks->contains($trick)) {
+            $this->tricks[] = $trick;
+            $trick->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTrick(Trick $trick): self
+    {
+        if ($this->tricks->contains($trick)) {
+            $this->tricks->removeElement($trick);
+            // set the owning side to null (unless already changed)
+            if ($trick->getAuthor() === $this) {
+                $trick->setAuthor(null);
+            }
+        }
 
         return $this;
     }

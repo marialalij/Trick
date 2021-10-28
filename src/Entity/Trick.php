@@ -7,10 +7,14 @@ use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Doctrine\ORM\Mapping\JoinColumn;
+
 
 
 /**
  * @ORM\Entity(repositoryClass=TrickRepository::class)
+ *  @ORM\Table(name="Trick")
  */
 class Trick
 {
@@ -48,7 +52,8 @@ class Trick
 
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="tricks",cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="tricks")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $author;
 
@@ -58,19 +63,28 @@ class Trick
     private $category;
 
     /**
-     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="trick",cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="trick",orphanRemoval=true)
      */
     private $comments;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Image", mappedBy="trick",cascade={"persist"})
+     * @ORM\JoinColumn(name="trick_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
     private $images;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Video", mappedBy="trick",cascade={"persist"})
+     * @ORM\JoinColumn(name="trick_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
     private $videos;
+
+    /**
+     * @Gedmo\Slug(fields={"name"})
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * 
+     */
+    private $slug;
 
 
     public function __construct()
@@ -259,5 +273,11 @@ class Trick
         }
 
         return $this;
+    }
+
+
+    public function getSlug(): ?string
+    {
+        return mb_strtolower(str_replace(' ', '_', $this->name));
     }
 }

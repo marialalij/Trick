@@ -19,6 +19,8 @@ use App\Service\UserService;
 use App\Form\NewPasswordType;
 use App\Form\PasswordFormType;
 use App\Form\ResetPasswordType;
+use App\Form\UserType;
+
 
 
 class UserController extends AbstractController
@@ -96,7 +98,6 @@ class UserController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
-            $this->addFlash("success", "Compte actif !");
             return $this->redirectToRoute("home");
         } else {
             $this->addFlash("error", "Ce compte n'exsite pas !");
@@ -146,8 +147,6 @@ class UserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             if ($passwordEncoder->isPasswordValid($this->getUser(), $form->get('oldPassword')->getData())) {
                 $this->userService->PasswordUpdate($user, $form->get('plainPassword')->getData());
-
-                $this->addFlash('success', 'Your password has been updated !');
 
                 return $this->redirectToRoute('user.resetPass');
             }
@@ -222,13 +221,47 @@ class UserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->userService->PasswordUpdate($user, $form->get('plainPassword')->getData());
-            $this->addFlash('success', 'Your password has been updated !');
 
             return $this->redirectToRoute('home');
         }
 
         return $this->render('security/newPassword.html.twig', [
             'user' => $user,
+            'form' => $form->createView(),
+        ]);
+    }
+    /**
+     * Display user profile.
+     * @Route("/user/profile/{userName}", name="user.profile")
+     */
+    public function profile(User $user): Response
+    {
+        return $this->render('user/profile.html.twig', [
+            'user' => $user,
+            'nav' => 'profile',
+        ]);
+    }
+
+
+    /**
+     * Handle user profile edition.
+     * @Route("/user/edit/{userName}", name="user.edit")
+     * @param $user User 
+     */
+    public function edit(Request $request, User $user): Response
+    {
+        $form = $this->createForm(UserType::class, $user);
+
+        if ($this->userService->handleProfileEdition($user, $form) === true) {
+
+            return $this->redirectToRoute('user.profile', [
+                'userName' => $user->getUserName(),
+            ]);
+        }
+
+        return $this->render('user/edit.html.twig', [
+            'user' => $user,
+            'nav' => 'profile',
             'form' => $form->createView(),
         ]);
     }

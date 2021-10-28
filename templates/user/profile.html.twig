@@ -1,0 +1,64 @@
+{% extends 'dashbord.html.twig' %}
+
+{% block title %}Profile
+{% endblock %}
+
+{% block subtitle %}
+	Your profile
+{% endblock %}
+
+
+{% block body %}
+	<div class="py-4 px-4 dashboard-div" id="profile">
+		{% for message in app.flashes('success') %}
+			<div class="alert alert-info w-100 mt-1 text-center">
+				{{ message }}
+			</div>
+		{% endfor %}
+		<div class="row pt-2">
+			<div class="col-md-4 text-center" id="userAvatar">
+				<img class="card-img-top home" src="/images/{{ user.avatar }}" alt="Trick">
+			</div>
+			<div class="row d-flex flex-column">
+				<p>
+					<strong>Username:
+					</strong>
+					{{ user.userName }}</p>
+				<p>
+					<strong>Email:
+					</strong>
+					{{ user.email }}</p>
+				{% if user.firstName or user.lastName %}
+					<p>
+						<strong>Name:
+						</strong>
+						{{ user.firstName }}
+						{{ user.lastName }}</p>
+				{% endif %}
+
+			</div>
+			{% if is_granted('ROLE_ADMIN') %}
+				<div class="row">
+					<p>Roles :
+						{% for role in user.roles %}
+							{% if role == "ROLE_USER" %}
+								User
+							{% elseif role == "ROLE_MODERATOR" %}
+								Moderator
+							{% else %}
+								Admin
+							{% endif %}
+						{% endfor %}
+					</p>
+				</div>
+			{% endif %}
+
+		</div>
+	</div>
+	<div class="row justify-content-center"></div>
+	<div class="row justify-content-center btn-small mt-2">
+		<a href="{{ path('user.resetPass') }}" class="btn btn-info">Reset Password</a>
+	</div>
+
+
+</div>{% endblock %}
