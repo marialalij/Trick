@@ -30,38 +30,37 @@
 								<input type="hidden" id="image-counter" value="0">
 								<hr>
 							</div>
-							<div class="form-row">
-								<div class="form-group col-md-12 text-center">
-									<p class="collection-head">Cliquez pour ajouter une vidéo</p>
-									{{ form_widget(form.video) }}
-									<input type="hidden" id="video-counter" value="0">
+						</div>
+						<div class="form-row">
+							<div class="form-group col-md-12 text-center">
+								<p class="collection-head">Cliquez pour ajouter une vidéo</p>
+								{{ form_widget(form.video) }}
+								<input type="hidden" id="video-counter" value="0">
 
-								</div>
 							</div>
 						</div>
 					</div>
 				</div>
+			</div>
 
-
-				<div class="row py-3 d-flex flex-column align-items-center pb-0" id="newTrickInfos">
-					<div class="form-group w-75 mr-auto">
-						{{ form_errors(form.name) }}
-						{{ form_widget(form.name, {'attr': {'placeholder': 'Trick name *'}}) }}
-					</div>
-					<div class="form-group w-100">
-						{{ form_errors(form.description) }}
-						{{ form_widget(form.description, {'attr': {'placeholder': 'Trick description *'}}) }}
-					</div>
-					<div class="form-group w-25 mr-auto">
-						{{ form_widget(form.category) }}
-					</div>
-					<button type="submit" class="btn btn-info ml-auto">Save</button>
-
+			<div class="row py-3 d-flex flex-column align-items-center pb-0" id="newTrickInfos">
+				<div class="form-group w-75 mr-auto">
+					{{ form_errors(form.name) }}
+					{{ form_widget(form.name, {'attr': {'placeholder': 'Trick name *'}}) }}
 				</div>
+				<div class="form-group w-100">
+					{{ form_errors(form.description) }}
+					{{ form_widget(form.description, {'attr': {'placeholder': 'Trick description *'}}) }}
+				</div>
+				<div class="form-group w-25 mr-auto">
+					{{ form_widget(form.category) }}
+				</div>
+				<button type="submit" class="btn btn-info ml-auto">Save</button>
 
 			</div>
 
-			{{ form_end(form) }}
 		</div>
+
+		{{ form_end(form) }}
 	</div>
-{% endblock %}
+</div>{% endblock %}
