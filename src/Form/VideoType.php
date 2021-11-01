@@ -1,27 +1,3 @@
-<?php
-
-namespace App\Form;
-
-use App\Entity\Video;
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ButtonType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\Regex;
-
-class VideoType extends AbstractType
-{
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
-        $builder
-            ->add('url');
-    }
-
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults([
-            'data_class' => Video::class,
-        ]);
-    }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:3a53c2bf3c8fa2eb8f31d4ed95c67f5139ae866efcad16461def312482100a76
+size 1271
