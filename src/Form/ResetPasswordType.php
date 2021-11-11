@@ -1,33 +1,3 @@
-<?php
-
-namespace App\Form;
-
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-
-class ResetPasswordType extends AbstractType
-{
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
-        $builder
-            ->add('userName', TextType::class, [
-                'required' => true,
-            ])
-            ->add('submit', SubmitType::class, [
-                'label' => 'Ask for reset password',
-                'attr' => [
-                    'class' => 'btn btn-info mt-3',
-                ],
-            ]);
-    }
-
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults([
-            // Configure your form options here
-        ]);
-    }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:13df44c245c6da592146d635a037056b3ae5cb98ca154589789e57a62a4705a7
+size 973
