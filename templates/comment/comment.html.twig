@@ -1,0 +1,33 @@
+{% extends 'dashbord.html.twig' %}
+{% block title %}My tricks
+{% endblock %}
+
+{% block subtitle %}
+	Mes Commentaire
+{% endblock %}
+
+{% block body %}
+<div class="px-4 py-4 dashboard-div" id="userComments">
+	{% for message in app.flashes('success') %}
+		<div class="alert alert-info w-100 mt-3 text-center">
+			{{ message }}
+		</div>
+	{% endfor %}
+	{% for comment in comments %}
+
+		<div class="text-justify trick-comment-content mb-3 mx-auto">
+			<p>{{ comment.content }}</p>
+			<p class="pr-2 mb-0">{{ comment.trick.name }}
+			</p>
+		</a>
+		-
+		{{ comment.createdAt| date('d/m/Y')  }}
+		-
+
+	</p>
+	<button type="button" class="btn btn-white" data-toggle="modal" data-target="#deleteModal" data-href="{{ path('comment_delete', {'id': comment.id}) }}">
+		<span class="text-danger"></span>
+		<i class="fas fa-trash-alt"></i>
+	</button>
+
+</div>{% endfor %}</div>{% endblock %}

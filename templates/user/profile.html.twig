@@ -1,0 +1,46 @@
+{% extends 'dashbord.html.twig' %}
+
+{% block title %}Profile
+{% endblock %}
+
+{% block subtitle %}
+	Ton profile
+{% endblock %}
+
+
+{% block body %}
+	<div class="py-4 px-4 dashboard-div" id="profile">
+		{% for message in app.flashes('success') %}
+			<div class="alert alert-info w-100 mt-1 text-center">
+				{{ message }}
+			</div>
+		{% endfor %}
+		<div class="row pt-2">
+			<div class="col-md-4 text-center" id="userAvatar">
+				<img class="card-img-top home" src="/images/{{ user.avatar }}" alt="Trick">
+			</div>
+			<div class="row d-flex flex-column">
+				<p>
+					<strong>Nom d'utilisateur:
+					</strong>
+					{{ user.userName }}</p>
+				<p>
+					<strong>Email:
+					</strong>
+					{{ user.email }}</p>
+				{% if user.firstName or user.lastName %}
+					<p>
+						<strong>Nom Et Prénom:
+						</strong>
+						{{ user.firstName }}
+						{{ user.lastName }}</p>
+				{% endif %}
+
+			</div>
+		</div>
+		<div class="row justify-content-center"></div>
+		<div class="row justify-content-center">
+			<a href="{{ path('user.edit', {userName: user.userName}) }}" class="btn btn-info">Modifier Le profile</a>
+		</div>
+	</div>
+{% endblock %}
