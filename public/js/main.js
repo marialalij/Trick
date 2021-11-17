@@ -163,12 +163,6 @@ $(function () {
     });
 
 
-
-    $(".delete-mainImg").click(function (e) {
-        $("#trickMainImg").css("background", "none").css("background-color", "grey");
-        $(".mainImg-input").css("display", "block");
-    })
-
     $(".edit-media-button").click(function (e) {
         $(this).parent().parent().find(".edit-media-input").css("display", "block");
     })
