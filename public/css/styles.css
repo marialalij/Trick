@@ -1,3 +1,771 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:bc8f3eb4f80deb1f7f5103c79c8ec18a093e1e6cf1ac7da1e8dc8a968ac875bb
-size 12358
+.logo {
+  max-height: 50px;
+}
+
+footer {
+  background-color:black;
+  color: white;
+  padding-top: 40px;
+  padding-bottom: 30px;
+}
+
+.container{
+  margin-top: 11rem;
+  margin-bottom: 3rem;
+}
+
+h2{
+  color: rgb(35, 161, 165);
+  letter-spacing: 3px;
+   text-shadow: 4px 3px 0px #fff, 9px 8px 0px rgba(0,0,0,0.15);
+}
+
+
+@media (max-width: 576px) {
+  .container-fluid:not(.homeHeader) {
+    margin-bottom: 5rem;
+  }
+}
+
+
+
+/*************************
+******* Home Page ********
+*************************/
+
+
+/******* Header *********/
+
+#home {
+  position: relative;
+}
+
+.homeHeader {
+  background: url("../images/snow.jpg") no-repeat fixed;
+  background-position: top;
+  position: relative;
+  height: 95vh;
+}
+
+
+/******* Trick List *********/
+
+#trickList {
+position: relative;
+padding: 5rem 0;
+}
+
+.trick-card-div { 
+  padding-right: 0.5rem;
+  padding-left: 0.5rem;
+}
+
+
+#trickList .card {
+  box-shadow: rgb(0, 0, 0) 0px 0px 20px -7px;
+  border-radius: 8%;
+  transform: scale(1);
+  transition: transform 0.7s;
+}
+
+.ligne{
+  display: flex;
+  flex-wrap: wrap;
+}
+#trickList .card:hover {
+  transform: scale(1.09);
+  transition: transform 0.3s;
+}
+
+#trickList .card-img-top {
+  border-radius: 2% 2% 0% 0%;
+  height: 10rem;
+  object-fit: cover;
+}
+
+#trickList .card-title {
+  text-transform: capitalize;
+  font-size: 1rem;
+}
+
+#trickList .card-title a,
+#userTricks .card-title a {
+  text-decoration: none;
+  color: black;
+}
+
+#trickList .card-title a:hover,
+#userTricks .card-title a:hover {
+  color: #338581;
+  transition: color 0.3s;
+}
+
+.loadMoreBtn,
+.loadLessBtn {
+  border: black 2px solid;
+  box-shadow: 2px 2px 3px 2px;
+}
+
+.fa-spinner {
+  color: #ac898e;
+}
+
+.fa-spinner:hover {
+  transform: rotate(360deg);
+  transition: transform 1000ms;
+}
+
+/*************************
+****** Trick Page ********
+*************************/
+
+#trickPage,
+#editPage {
+ 
+  border-radius: 10px;
+  background-color: white;
+}
+
+.trick-bg {
+ 
+  margin-top: 60px;
+}
+
+#trickMainImg {
+  background-size: cover !important;
+  background-repeat: no-repeat;
+  border-radius: 10px 10px 0px 0px;
+  min-height: 30rem;
+  position: relative;
+}
+
+.trick-actions {
+  position: absolute;
+  top: 0.5rem;
+}
+
+
+
+#trickPage h1 {
+  font-size: 2rem;
+}
+
+/* ////// Media div /////// */
+
+.trick-media {
+  height: 10rem;
+  object-fit: cover;
+  border: none !important;
+  padding: 0;
+  box-shadow: grey 1px 1px 5px -1px;
+  border-radius: 5px;
+
+}
+
+.trick-media:hover {
+  transform: scale(1.05);
+  transition: transform 0.3s;
+}
+
+#image-fields-list li > div,
+#video-fields-list li > div {
+  display: flex;
+  margin-bottom: 0.5rem;
+}
+
+#image-fields-list button,
+#video-fields-list button {
+  margin-left: 1rem;
+  background: none;
+  border: none;
+  color: #89acaa;
+}
+
+#trickPage #trickMedia button {
+  display: none;
+}
+
+@media (max-width: 576px) {
+  #trickPage #trickMedia button {
+    display: block;
+  }
+  
+  #trickPage .media-slider {
+    display: none;
+  }
+}
+
+/* ///// Modal Gallery /////// */
+
+.carousel-inner {
+  max-height: 100%;
+}
+
+#modalGallery {
+  padding: 5% !important;
+}
+
+#modalGallery span {
+  color: white;
+}
+
+#modalGallery .modal-header {
+  border-bottom: none;
+}
+
+#modalGallery .modal-content {
+  padding: 0 1rem 2rem 1rem;
+  background-color: black;
+}
+
+.carousel-item img {
+  max-height: 70vh;
+  object-fit: contain;
+}
+
+/* ////// Trick infos div /////// */
+
+#trickInfos {
+  padding-right: 7rem;
+  padding-left: 7rem;
+}
+
+#trickInfos .badge {
+  padding: 0.4rem !important;
+  letter-spacing: 0.05rem;
+  align-self: center;
+}
+
+#trickInfos .badge span {
+  font-weight: 100;
+  font-size: 0.6rem;
+  display: block;
+  margin-top: 0.5rem;
+  font-style: italic;
+}
+
+#trickGroup,
+#trickDates {
+  position: relative;
+}
+
+#trickDates::before {
+  top: 0;
+}
+
+#trickPage hr {
+  border-top: rgba(137, 172, 170, 0.2) 1px solid;
+  margin-right: 9rem;
+  margin-left: 9rem;
+}
+
+#userModal .modal-dialog {
+  max-width: 75%;
+}
+
+#userModalAvatar {
+  max-width: 100%;
+}
+
+@media (max-width: 767px) {
+  #userModalInfos {
+    text-align: center;
+  }
+  #trickBadges {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  #trickBadges .badge {
+    margin-bottom: 1rem;
+  }
+  #userModal .modal-dialog {
+    max-width: 95%;
+  }
+}
+
+/* ////// Comment div /////// */
+
+#trickCommentForm,
+#trickComments {
+  padding-right: 10rem;
+  padding-left: 10rem;
+}
+
+#trickCommentForm a {
+  text-decoration: none;
+  color: #89acaa;
+  font-size: 1.3rem;
+  font-weight: bold;
+  font-style: italic;
+}
+
+#trickCommentForm a:hover {
+  color: black;
+}
+
+#trickCommentForm form {
+  width: 100%;
+}
+
+#trickCommentForm textarea {
+  height: 5rem;
+}
+
+.textarea-comment {
+  width: 70%;
+  margin-bottom: 0;
+}
+
+.trick-comment-content {
+  background-color: rgba(137, 172, 170, 0.1);
+  border-radius: 5px;
+  padding: 1rem;
+  position: relative;
+  width: 85%;
+}
+
+.trick-comment-content::before {
+  content: '';
+  position: absolute;
+  left: -1rem;
+  top: -0.3rem;
+  border-top: white solid 1rem;
+  border-bottom: rgba(137, 172, 170, 0.1) solid 1rem;
+  border-left: white solid 1rem;
+}
+
+.trick-comment-content p:last-child {
+  font-style: italic;
+  font-weight: bold;
+  font-size: 0.75rem;
+  text-align: right;
+}
+
+.trick-comment-avatar {
+  width: 15%;
+}
+
+.avatar {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+@media (max-width: 991px) {
+  #trickInfos,
+  #trickCommentForm,
+  #trickComments {
+    padding-right: 4rem;
+    padding-left: 4rem;
+  }
+  
+  #trickPage hr {
+    margin-right: 4rem;
+    margin-left: 4rem;
+  }
+}
+
+@media (max-width: 768px) {
+  #trickInfos,
+  #trickCommentForm,
+  #trickComments {
+    padding-right: 2rem;
+    padding-left: 2rem;
+  }
+  
+  #trickPage hr {
+    margin-right: 2rem;
+    margin-left: 2rem;
+  }
+  
+  .avatar {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+  }
+  
+  .textarea-comment {
+    width: 100%;
+  }
+}
+
+@media (max-width: 576px) {
+  .avatar {
+    width: 3rem;
+    height: 3rem;
+  }
+  
+  .trick-comment-avatar {
+    width: 20%;
+  }
+  
+  #trickCommentForm a {
+    font-size: 1rem;
+  }
+  
+  #trickCommentForm button {
+    margin-top: 1rem;
+  }
+  
+  #trickComments {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+/*************************
+**** New Trick Page ******
+*************************/
+
+#newTrickInfos,
+#newTrickMainImage,
+#newMedia {
+  padding-right: 8rem;
+  padding-left: 8rem;
+}
+
+
+
+.form-group textarea {
+  width: 100%;
+  height: 150px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  font-size: 16px;
+  resize: none;
+  
+}
+.form-group input{
+
+  width: 100%;
+  height: 60px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  font-size: 16px;
+  margin-bottom: 30px;
+
+}
+
+.form-group select{
+
+  width: 100%;
+  height: 60px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  font-size: 16px;
+  margin-bottom: 30px;
+
+}
+
+#image-fields-list,
+#video-fields-list {
+  padding-left: 0rem;
+}
+
+#image-fields-list li,
+#video-fields-list li {
+  list-style-type: none;
+}
+
+@media (max-width: 576px) {
+  #newTrickInfos,
+  #newTrickMainImage,
+  #newMedia {
+    padding-right: 1rem;
+    padding-left: 1rem;
+  }
+  
+  #newMedia {
+    display: none;
+  }
+}
+
+/*************************
+**** edit Trick Page ******
+**************************/
+
+.mainImg-input .custom-file {
+  display: none;
+}
+
+.edit-media-input .custom-file,
+.edit-media-input button {
+  display: none;
+}
+
+.edit-media-input .custom-file {
+  margin-top: 1rem;
+}
+
+.card-actions button {
+  border: none;
+  background: none;
+}
+
+#editPage #trickMedia .btn {
+  display: none;
+}
+
+@media (max-width: 576px) {
+  #editPage #trickMedia .btn {
+    display: block;
+  }
+  
+  #editPage .media-slider {
+    display: none;
+  }
+}
+
+/* ////// Comment div /////// */
+
+#trickCommentForm,
+#trickComments {
+  padding-right: 10rem;
+  padding-left: 10rem;
+}
+
+#trickCommentForm a {
+  text-decoration: none;
+  color: #89acaa;
+  font-size: 1.3rem;
+  font-weight: bold;
+  font-style: italic;
+}
+
+#trickCommentForm a:hover {
+  color: black;
+}
+
+#trickCommentForm form {
+  width: 100%;
+}
+
+#trickCommentForm textarea {
+  height: 5rem;
+}
+
+.textarea-comment {
+  width: 70%;
+  margin-bottom: 0;
+}
+
+.trick-comment-content {
+  background-color: rgba(137, 172, 170, 0.1);
+  border-radius: 5px;
+  padding: 1rem;
+  position: relative;
+  width: 85%;
+}
+
+.trick-comment-content::before {
+  content: '';
+  position: absolute;
+  left: -1rem;
+  top: -0.3rem;
+  border-top: white solid 1rem;
+  border-bottom: rgba(137, 172, 170, 0.1) solid 1rem;
+  border-left: white solid 1rem;
+}
+
+.trick-comment-content p:last-child {
+  font-style: italic;
+  font-weight: bold;
+  font-size: 0.75rem;
+  text-align: right;
+}
+
+.trick-comment-avatar {
+  width: 15%;
+}
+
+.avatar {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+@media (max-width: 991px) {
+  #trickInfos,
+  #trickCommentForm,
+  #trickComments {
+    padding-right: 4rem;
+    padding-left: 4rem;
+  }
+  
+  #trickPage hr {
+    margin-right: 4rem;
+    margin-left: 4rem;
+  }
+}
+
+@media (max-width: 768px) {
+  #trickInfos,
+  #trickCommentForm,
+  #trickComments {
+    padding-right: 2rem;
+    padding-left: 2rem;
+  }
+  
+  #trickPage hr {
+    margin-right: 2rem;
+    margin-left: 2rem;
+  }
+  
+  .avatar {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+  }
+  
+  .textarea-comment {
+    width: 100%;
+  }
+}
+
+@media (max-width: 576px) {
+  .avatar {
+    width: 3rem;
+    height: 3rem;
+  }
+  
+  .trick-comment-avatar {
+    width: 20%;
+  }
+  
+  #trickCommentForm a {
+    font-size: 1rem;
+  }
+  
+  #trickCommentForm button {
+    margin-top: 1rem;
+  }
+  
+  #trickComments {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+/* --------------------------------------------------------------------------------- */
+
+/*  /* Tricks update */
+
+/* --------------------------------------------------------------------------------- */
+
+.update-trick {
+  margin-top: 8rem;
+}
+
+#trick_content {
+  height: 10rem;
+}
+
+#trick_category {
+  height: 2.813rem;
+}
+
+.block-image > div.col-md-6 > div {
+  height: 45px;
+}
+
+body > div.container-fluid > div > div > div.main-content-container.container-fluid.px-4 > div:nth-child(2) > div > div > ul > li > div > div > form > div:nth-child(3) > div {
+  margin-bottom: 2.5rem;
+}
+
+#trick_images > fieldset {
+  margin: 0;
+}
+
+#trick_videos > fieldset {
+  margin: 0;
+}
+
+.custom-file-label::after {
+  content: "Choisir un fichier";
+}
+
+.card > .list-group:last-child .list-group-item:last-child {
+  border-bottom-right-radius: 0.625rem;
+  border-bottom-left-radius: 0.625rem;
+}
+
+.custom-file-label {
+  text-align: left;
+}
+
+.btn-trick {
+  height: 45px;
+  line-height: 1rem;
+  font-size: 36px;
+}
+
+.btn.btn-secondary.btn-trick {
+  padding-top: 10px;
+  padding-left: 10.5px;
+  padding-right: 10.5px;
+  border: none;
+}
+
+.img-trick-principale {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 2rem;
+  border-radius: 0.625rem;
+}
+
+.img-trick {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 2rem;
+  margin-top: 1.5rem;
+  border-radius: 0.625rem;
+}
+
+p.collection-head {
+  font-weight: 600;
+  margin-bottom: 1.3rem;
+}
+
+p.collection-head.first {
+  margin-top: 1rem;
+}
+
+.delimiter {
+  margin-top: 0;
+  margin-bottom: 2rem;
+}
+
+.iframe-trick {
+  width: 100%;
+  min-height: 20rem;
+  margin-bottom: 1rem;
+  margin-top: 1.5rem;
+  border: none;
+}
+
+.counter-image,
+.counter-video {
+  font-size: 20px;
+  font-weight: bolder;
+  vertical-align: middle;
+  margin-left: 1rem;
+  padding: 0.7rem;
+  color: black;
+  border: 2px solid #d9534f;
+  border-radius: 0.625rem;
+}
+
+.name {
+  width: 50%;
+}
+}
