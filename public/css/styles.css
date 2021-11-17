@@ -17,7 +17,7 @@ footer {
 h2{
   color: rgb(35, 161, 165);
   letter-spacing: 3px;
-   text-shadow: 4px 3px 0px #fff, 9px 8px 0px rgba(0,0,0,0.15);
+  text-shadow: 4px 3px 0px #fff, 9px 8px 0px rgba(0,0,0,0.15);
 }
 
 
@@ -51,8 +51,8 @@ h2{
 /******* Trick List *********/
 
 #trickList {
-position: relative;
-padding: 5rem 0;
+  position: relative;
+  padding: 5rem 0;
 }
 
 .trick-card-div { 
@@ -362,8 +362,8 @@ padding: 5rem 0;
   }
   
   #trickPage hr {
-    margin-right: 4rem;
-    margin-left: 4rem;
+  margin-right: 4rem;
+  margin-left: 4rem;
   }
 }
 
