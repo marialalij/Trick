@@ -249,7 +249,7 @@ class UserController extends AbstractController
      * @Route("/user/edit/{userName}", name="user.edit")
      * @param $user User 
      */
-    public function edit(Request $request, User $user): Response
+    public function edit(User $user): Response
     {
         $form = $this->createForm(UserType::class, $user);
 

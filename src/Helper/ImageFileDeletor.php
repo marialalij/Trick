@@ -50,7 +50,7 @@ class ImageFileDeletor
                             if (\in_array($file, $data, true)) {
                                 $this->fileSystem->remove($directory . '/' . $file);
                             }
-                        } else {
+                        } {
                             if (!\in_array($file, $data, true)) {
                                 $this->fileSystem->remove($directory . '/' . $file);
                             }

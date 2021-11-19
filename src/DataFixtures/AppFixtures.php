@@ -44,10 +44,7 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
-        // $product = new Product();
-        // $manager->persist($product);
-
-        $roles = [['ROLE_ADMIN'], ['ROLE_USER']];
+        $roles = [['ROLE_ADMIN']];
 
         for ($i = 0; $i < 10; $i++) {
             $user = new User();
@@ -68,10 +65,6 @@ class AppFixtures extends Fixture
             'User' => [
                 'User1*',
                 ['ROLE_USER'],
-            ],
-            'Admin' => [
-                'Admin1*',
-                ['ROLE_ADMIN'],
             ],
         ];
 

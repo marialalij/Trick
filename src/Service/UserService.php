@@ -101,7 +101,7 @@ class UserService
                 if ($avatar === null) {
                     $avatar = 'image1.jpg';
                     $user->setAvatar($avatar);
-                } else {
+                } {
                     $newFilename = $this->UploaderHelper->upload($avatar);
 
                     $user->setAvatar($newFilename);
