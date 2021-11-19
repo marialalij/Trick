@@ -15,6 +15,7 @@ $("#trickPage #trickMedia button").click(function (e) {
     $(this).css("display", "none");
 });
 
+
 $(".trick-media").click(function () {
     var trickId = $(this).attr("id");
     var carouselId = "carousel" + trickId;
@@ -92,20 +93,6 @@ $(function () {
         }
     });
 
-
-
-    /* ******** trick page ****** */
-
-    $("#trickPage #trickMedia button").click(function (e) {
-        $("#trickPage #trickMedia .media-slider").css("display", "block");
-        $(this).css("display", "none");
-    });
-
-    $(".trick-media").click(function () {
-        var trickId = $(this).attr("id");
-        var carouselId = "carousel" + trickId;
-        $(".carousel-item[id =" + carouselId + "]").addClass("active");
-    })
 
     $("#modalGallery").on("hide.bs.modal", function (e) {
         $(".carousel-item").removeClass("active");
@@ -208,12 +195,6 @@ $(function () {
         $(this).find("#csrf_deletion").attr("value", $(e.relatedTarget).data("token"));
     });
 
-    /* ********** Passing group infos to modal ********* */
-
-    $("#deleteGroupModal").on("show.bs.modal", function (e) {
-        $(this).find("#group_deletion").attr("action", $(e.relatedTarget).data("action"));
-        $(this).find("#csrf_deletion").attr("value", $(e.relatedTarget).data("token"));
-    });
 
     /* ******** user profile page ****** */
 

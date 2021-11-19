@@ -23,8 +23,7 @@ class Mailer
     }
 
     /**
-     * Handle mail sending for registration, forgot password and trick report features.
-     *
+     * Handle mail sending for registration, forgot password 
      * @return void
      */
     public function sendMail(string $type, User $user, array $data)

@@ -122,18 +122,4 @@ class ImageService
             $this->fileSystem->remove($directory);
         }
     }
-
-    /**
-     * Handle main image deletion.
-     *
-     * @return void
-     */
-    public function handleMainImageDeletion(Trick $trick)
-    {
-        try {
-            $this->imageFileDeletor->deleteFile('trick', $trick->getId(), [$trick->getMainImage()], true);
-        } catch (\Exception $exception) {
-            throw $exception;
-        }
-    }
 }

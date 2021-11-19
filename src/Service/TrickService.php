@@ -76,21 +76,4 @@ class TrickService
             throw $exception;
         }
     }
-
-    /**
-     * Handle trick main image deletion.
-     *
-     * @return void
-     */
-    public function handleMainImageDeletion(Trick $trick)
-    {
-        try {
-            $this->imageService->handleMainImageDeletion($trick);
-            $trick->setMainImage(null);
-            $this->entityManager->persist($trick);
-            $this->entityManager->flush();
-        } catch (\Exception $exception) {
-            throw $exception;
-        }
-    }
 }
